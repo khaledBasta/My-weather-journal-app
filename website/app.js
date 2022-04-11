@@ -4,7 +4,9 @@ const apiKey = "a40c6f048f9a89e079140d573655672d";
 let apiURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
 const button = document.querySelector('#generate');
-const zipCode = document.querySelector('#zip');
+const inputZipCode = document.querySelector('#zip');
+const textarea = document.querySelector('#feelings');
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
@@ -40,6 +42,7 @@ const sendingData = async (data = {}) => {
   }
 };
 
+
 const updateUI = () => {
   const fetchingData = await fetch('/getData');
   try {
@@ -51,3 +54,12 @@ const updateUI = () => {
     console.log(error.message);
   }
 };
+
+// Click event
+button.addEventListener('click', ()=> {
+  const zipCode = inputZipCode.value;
+  const feelings = textarea.value;
+  getTemp(apiURL, zipCode, apiKey)
+  .then(data => sendingData({date:newDate, temp:data.main.temp, feelings}))
+  .then(() => updateUI());
+});
