@@ -2,6 +2,7 @@
 const apiKey = "a40c6f048f9a89e079140d573655672d";
 
 let apiURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
@@ -32,6 +33,18 @@ const sendingData = async (data = {}) => {
   try {
     const result = await postReq.json();
     return result;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const updateUI = () => {
+  const fetchingData = await fetch('/getData');
+  try {
+    const data = await fetchingData.json()
+    document.querySelector('#date').textContent = data.date;
+    document.querySelector('#temp').textContent = data.temp;
+    document.querySelector('#content').textContent = data.feelings;
   } catch (error) {
     console.log(error.message);
   }
