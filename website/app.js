@@ -3,9 +3,9 @@ const apiKey = "a40c6f048f9a89e079140d573655672d";
 
 let apiURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
-const button = document.querySelector('#generate');
-const inputZipCode = document.querySelector('#zip');
-const textarea = document.querySelector('#feelings');
+const button = document.querySelector("#generate");
+const inputZipCode = document.querySelector("#zip");
+const textarea = document.querySelector("#feelings");
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -18,6 +18,7 @@ const getTemp = async (apiURL, zipCode, apiKey) => {
   );
   try {
     const data = await fetchTemp.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error.message);
@@ -42,28 +43,31 @@ const sendingData = async (data = {}) => {
   }
 };
 
-
-const updateUI = () => {
-  const fetchingData = await fetch('/getData');
+const updateUI = async () => {
+  const fetchingData = await fetch("/getData");
   try {
-    const data = await fetchingData.json()
-    document.querySelector('#date').textContent = data.date;
-    document.querySelector('#temp').textContent = data.temp;
-    document.querySelector('#content').textContent = data.feelings;
+    const data = await fetchingData.json();
+    console.log(data);
+    document.querySelector("#date").innerHTML = data.date;
+    document.querySelector("#temp").innerHTML = data.temp;
+    document.querySelector("#content").innerHTML = data.feelings;
   } catch (error) {
     console.log(error.message);
   }
 };
 
 // Click event
-button.addEventListener('click', ()=> {
+button.addEventListener("click", () => {
   const zipCode = inputZipCode.value;
   const feelings = textarea.value;
-  if(zipCode.trim() === "" || feelings.trim() === "") {
-    alert('zip code and feelings are required!!!');
+  console.log("button clicked");
+  if (zipCode.trim() === "" || feelings.trim() === "") {
+    alert("zip code and feelings are required!!!");
     return;
   }
   getTemp(apiURL, zipCode, apiKey)
-  .then(data => sendingData({date:newDate, temp:data.main.temp, feelings}))
-  .then(() => updateUI());
+    .then((data) =>
+      sendingData({ date: newDate, temp: data.main.temp, feelings })
+    )
+    .then(() => updateUI());
 });

@@ -5,7 +5,7 @@ let projectData = {};
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { response } = require("express");
+// const { response } = require("express");
 
 // Start up an instance of app
 const app = express();
@@ -34,8 +34,18 @@ app.get("/getData", (req, res) => {
   res.send(projectData);
 });
 
+// POST a weather
+const data = [];
+
 // post request
 app.post("/sendData", (req, res) => {
   projectData = req.body;
   res.send(projectData);
 });
+
+// app.post("/sendData", addWeather);
+
+// function addWeather(req, res) {
+//   data.push(req.body);
+//   console.log(data);
+// }
