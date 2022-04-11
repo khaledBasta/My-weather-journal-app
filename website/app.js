@@ -3,6 +3,8 @@ const apiKey = "a40c6f048f9a89e079140d573655672d";
 
 let apiURL = "https://api.openweathermap.org/data/2.5/weather?zip=";
 
+const button = document.querySelector('#generate');
+const zipCode = document.querySelector('#zip');
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
