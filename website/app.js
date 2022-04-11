@@ -59,6 +59,10 @@ const updateUI = () => {
 button.addEventListener('click', ()=> {
   const zipCode = inputZipCode.value;
   const feelings = textarea.value;
+  if(zipCode.trim() === "" || feelings.trim() === "") {
+    alert('zip code and feelings are required!!!');
+    return;
+  }
   getTemp(apiURL, zipCode, apiKey)
   .then(data => sendingData({date:newDate, temp:data.main.temp, feelings}))
   .then(() => updateUI());
